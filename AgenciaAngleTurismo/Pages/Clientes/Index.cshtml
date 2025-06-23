@@ -2,55 +2,43 @@
 @model AgenciaTurismo.Pages_Clientes.IndexModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Lista de Clientes";
 }
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+        <a asp-page="Create" class="btn btn-primary">
+            <i class="fas fa-user-plus"></i> Novo Cliente
+        </a>
+    </div>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Cliente[0].Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cliente[0].Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cliente[0].DataNascimento)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Cliente) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataNascimento)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-</body>
-</html>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover table-striped align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Cliente[0].Nome)</th>
+                        <th>@Html.DisplayNameFor(model => model.Cliente[0].Email)</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Cliente)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td class="text-end">
+                                <div class="btn-group" role="group">
+                                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary" title="Editar"><i class="fas fa-edit"></i>Edit</a>
+                                    <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info" title="Detalhes"><i class="fas fa-info-circle"></i>Details</a>
+                                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger" title="Excluir"><i class="fas fa-trash-alt"></i>Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

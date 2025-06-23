@@ -2,61 +2,42 @@
 @model AgenciaTurismo.Pages_Pacotes.IndexModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Pacotes Turísticos";
 }
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+        <a asp-page="Create" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Novo Pacote
+        </a>
+    </div>
 
-<!DOCTYPE html>
+    <div class="row">
+        @foreach (var pacote in Model.PacoteTuristico)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm package-card">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => pacote.Titulo)</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            <i class="fas fa-map-marker-alt"></i> @Html.DisplayFor(modelItem => pacote.Destino.Nome)
+                        </h6>
+                        
+                        <div class="my-3">
+                           <p class="mb-1"><i class="fas fa-calendar-start"></i> <strong>Partida:</strong> @pacote.DataInicio.ToString("dd/MM/yyyy")</p>
+                        </div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PacoteTuristico[0].Titulo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PacoteTuristico[0].DataInicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PacoteTuristico[0].Preco)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PacoteTuristico[0].Destino)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.PacoteTuristico) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Preco)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Destino.Nome)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-</body>
-</html>
+                        <div class="text-end mt-auto">
+                            <h4 class="card-price">@pacote.Preco.ToString("C", new System.Globalization.CultureInfo("pt-BR"))</h4>
+                             <div class="btn-group" role="group">
+                                <a asp-page="./Edit" asp-route-id="@pacote.Id" class="btn btn-sm btn-outline-primary" title="Editar"><i class="fas fa-edit"></i>Edit</a>
+                                <a asp-page="./Details" asp-route-id="@pacote.Id" class="btn btn-sm btn-outline-info" title="Detalhes"><i class="fas fa-info-circle"></i>Details</a>
+                                <a asp-page="./Delete" asp-route-id="@pacote.Id" class="btn btn-sm btn-outline-danger" title="Excluir"><i class="fas fa-trash-alt"></i>Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

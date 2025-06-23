@@ -20,7 +20,7 @@ namespace AgenciaTurismo.Pages_Destinos
             _context = context;
         }
 
-        public IList<Destino> Destino { get;set; } = default!;
+        public IList<Destino> Destino { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
