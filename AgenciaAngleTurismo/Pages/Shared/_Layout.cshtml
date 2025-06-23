@@ -33,34 +33,49 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Destinos/Index">Destinos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Pacotes/Index">Pacotes</a>
+                        <li class="nav-item dropdown text-white">
+                            <a class="nav-link dropdown-toggle text-white href="#" id="navbarDropdownClientes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Clientes
+                            </a>
+                            <ul class="dropdown-menu text-white" aria-labelledby="navbarDropdownClientes">
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Clientes/Index">Listar Clientes</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Clientes/Create">Criar Cliente</a></li>
+                            </ul>
                         </li>
 
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-page="/Reservas/Index">Minhas Reservas</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-page="/Clientes/Index">Clientes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-page="/Notes/ViewNotes">Anotações</a>
-                            </li>
-                        }
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white  href="#" id="navbarDropdownDestinos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Destinos
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownDestinos">
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Destinos/Index">Listar Destinos</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Destinos/Create">Criar Destino</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white  href="#" id="navbarDropdownDestinos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Pacotes
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownPacotes">
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Pacotes/Index">Listar Pacotes</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Pacotes/Create">Criar Pacote</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white href="#" id="navbarDropdownDestinos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Reservas
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownReservas">
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Reservas/Index">Listar Reservas</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-page="/Reservas/Create">Criar Reserva</a></li>
+                            </ul>
+                        </li>
                     </ul>
-
                     <partial name="_LoginPartial" />
-
                 </div>
             </div>
         </nav>
