@@ -1,0 +1,60 @@
+﻿@page
+@model AgenciaTurismo.Pages.Reservas.DetailsModel
+
+@{
+    ViewData["Title"] = "Detalhes da Reserva";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Reserva.Cliente)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Reserva.Cliente.Nome)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Reserva.PacoteTuristico)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Reserva.PacoteTuristico.TituloCompleto)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Reserva.PacoteTuristico.Destino)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Reserva.PacoteTuristico.Destino.Nome) -
+            @Html.DisplayFor(model => model.Reserva.PacoteTuristico.Destino.Pais)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Reserva.QuantidadeViajantes)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Reserva.QuantidadeViajantes)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Reserva.ValorTotal)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Reserva.ValorTotal)
+        </dd>
+
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Reserva.DataReserva)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Reserva.DataReserva)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Reserva.Id" class="btn btn-primary">Editar</a>
+    <a asp-page="./Index" class="btn btn-secondary">Voltar para a lista</a>
+</div>

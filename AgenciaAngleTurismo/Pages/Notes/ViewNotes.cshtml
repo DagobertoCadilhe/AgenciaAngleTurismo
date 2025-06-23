@@ -1,0 +1,82 @@
+﻿@page
+@model AgenciaTurismo.Pages.Notes.ViewNotesModel
+
+@{
+    ViewData["Title"] = "Gerenciamento de Notas";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" class="mb-4">
+                <div class="form-group">
+                    <label asp-for="NoteContent" class="control-label">Nova Nota</label>
+                    <textarea asp-for="NoteContent" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="NoteContent" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Salvar Nota</button>
+            </form>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Notas Disponíveis</h3>
+
+            @if (Model.AvailableNotes.Any())
+            {
+                <div class="list-group mb-3">
+                    @foreach (var note in Model.AvailableNotes)
+                    {
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <a asp-page="ViewNotes" asp-route-noteName="@note">@note</a>
+                            <form method="post" asp-page-handler="Delete" asp-route-noteName="@note">
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Tem certeza que deseja excluir esta nota?')">
+                                    Excluir
+                                </button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info">Nenhuma nota disponível.</div>
+            }
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.CurrentNoteContent))
+        {
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h5>@Model.CurrentNoteName</h5>
+                    </div>
+                    <div class="card-body">
+                        <pre class="mb-0">@Model.CurrentNoteContent</pre>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

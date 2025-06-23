@@ -1,0 +1,40 @@
+﻿@page
+@model AgenciaTurismo.Pages.Reservas.IndexModel
+
+@{
+    ViewData["Title"] = "Lista de Reservas";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Pacote</th>
+            <th>Destino</th>
+            <th>Data</th>
+            <th>Viajantes</th>
+            <th>Valor</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Reservas)
+        {
+            <tr>
+                <td>@item.Cliente?.Nome</td>
+                <td>@item.PacoteTuristico?.Titulo</td>
+                <td>@item.PacoteTuristico?.Destino?.Nome</td>
+                <td>@item.DataReserva.ToShortDateString()</td>
+                <td>@item.QuantidadeViajantes</td>
+                <td>@item.ValorTotal.ToString("C")</td>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-info">Detalhes</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-page="Create" class="btn btn-primary">Nova Reserva</a>
