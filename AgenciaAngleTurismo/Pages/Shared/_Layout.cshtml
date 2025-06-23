@@ -3,59 +3,84 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Agência de Turismo</title>
+    <title>@ViewData["Title"] - Angle Turismo</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/AgenciaTurismo.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AgenciaAngleTurismo.styles.css" asp-append-version="true" />
+
+    <style>
+        html {
+            font-size: 16px;
+        }
+
+        @@media (min-width: 768px) {
+            html {
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom box-shadow">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">
-                    <i class="bi bi-airplane"></i> Agência de Turismo
+                    <strong>Angle Turismo</strong>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/Index"><i class="bi bi-house"></i> Home</a>
+                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <i class="bi bi-gear"></i> Cadastros
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-page="/Clientes/Index"><i class="bi bi-people"></i> Clientes</a></li>
-                                <li><a class="dropdown-item" asp-page="/Destinos/Index"><i class="bi bi-geo-alt"></i> Destinos</a></li>
-                                <li><a class="dropdown-item" asp-page="/Pacotes/Index"><i class="bi bi-suitcase-lg"></i> Pacotes</a></li>
-                                <li><a class="dropdown-item" asp-page="/Reservas/Index"><i class="bi bi-journal-check"></i> Reservas</a></li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Destinos/Index">Destinos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Pacotes/Index">Pacotes</a>
+                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Reservas/Index">Minhas Reservas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Clientes/Index">Clientes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Notes/ViewNotes">Anotações</a>
+                            </li>
+                        }
                     </ul>
+
                     <partial name="_LoginPartial" />
+
                 </div>
             </div>
         </nav>
     </header>
 
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 pt-4">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted bg-light">
-        <div class="container text-center">
-            &copy; @DateTime.Now.Year - Agência de Turismo - <a asp-page="/Privacy">Política de Privacidade</a>
+        <div class="container">
+            &copy; @DateTime.Now.Year - Angle Turismo - <a asp-area="" asp-page="/Privacy">Política de Privacidade</a>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

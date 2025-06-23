@@ -1,0 +1,48 @@
+﻿@page "{id:int}"
+@model AgenciaTurismo.Pages.Reservas.EditModel
+
+@{
+    ViewData["Title"] = "Editar Reserva";
+}
+
+<h1>Editar Reserva</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Reserva.Id" />
+
+            <input type="hidden" asp-for="Reserva.DataReserva" />
+            <input type="hidden" asp-for="Reserva.ValorTotal" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Reserva.ClienteId" class="control-label">Cliente</label>
+                <select asp-for="Reserva.ClienteId" class="form-control" asp-items="ViewBag.ClienteId"></select>
+                <span asp-validation-for="Reserva.ClienteId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Reserva.PacoteTuristicoId" class="control-label">Pacote Turístico</label>
+                <select asp-for="Reserva.PacoteTuristicoId" class="form-control" asp-items="ViewBag.PacoteTuristicoId"></select>
+                <span asp-validation-for="Reserva.PacoteTuristicoId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Reserva.QuantidadeViajantes" class="control-label">Quantidade de Viajantes</label>
+                <input asp-for="Reserva.QuantidadeViajantes" class="form-control" />
+                <span asp-validation-for="Reserva.QuantidadeViajantes" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-4">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <a asp-page="./Index" class="btn btn-secondary">Voltar para a Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

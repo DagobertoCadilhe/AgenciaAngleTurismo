@@ -1,10 +1,53 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Página Inicial";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="position-relative p-5 text-center text-white bg-dark rounded-3" style="background-size: cover; background-position: center center;">
+    <div style="background-color: rgba(0, 0, 0, 0.6); padding: 2rem; border-radius: 1rem;">
+        <h1 class="display-4 fw-bold">Bem-vindo à Angle Turismo</h1>
+        <p class="lead col-lg-8 mx-auto">Sua próxima grande aventura começa aqui. Explore nossos destinos e pacotes exclusivos, pensados para criar memórias inesquecíveis.</p>
+        <hr class="my-4">
+        <p>Pronto para viajar? Veja nossas ofertas imperdíveis e encontre o destino dos seus sonhos.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a class="btn btn-primary btn-lg px-4 gap-3" asp-page="/Pacotes/Index" role="button">Ver Pacotes Turísticos</a>
+            <a class="btn btn-outline-light btn-lg px-4" asp-page="/Destinos/Index" role="button">Conhecer Destinos</a>
+        </div>
+    </div>
+</div>
+
+<div class="container px-4 py-5" id="featured-services">
+    <h2 class="pb-2 border-bottom text-center">Por Que Viajar Conosco?</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+        <div class="feature col text-center">
+            <h3 class="fs-4">Destinos Incríveis</h3>
+            <p>Selecionamos a dedo os melhores lugares para você conhecer, desde praias paradisíacas a metrópoles vibrantes e cheias de cultura.</p>
+        </div>
+        <div class="feature col text-center">
+            <h3 class="fs-4">Preços Acessíveis</h3>
+            <p>Oferecemos pacotes com o melhor custo-benefício do mercado, garantindo uma viagem fantástica que cabe no seu bolso.</p>
+        </div>
+        <div class="feature col text-center">
+            <h3 class="fs-4">Experiência Completa</h3>
+            <p>Cuidamos de todos os detalhes, desde passagens até hospedagem, para que sua única preocupação seja aproveitar cada momento.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row align-items-md-stretch">
+    <div class="col-md-6 mb-4">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+            <h2>Suas Reservas</h2>
+            <p>Já é nosso cliente? Acesse sua área para visualizar e gerenciar os detalhes de suas viagens de forma rápida e segura.</p>
+            <a class="btn btn-outline-light" asp-page="/Reservas/Index">Minhas Reservas</a>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+            <h2>Crie Sua Conta</h2>
+            <p>Cadastre-se gratuitamente para salvar seus pacotes favoritos, agilizar suas futuras reservas e receber ofertas exclusivas por e-mail.</p>
+            <a class="btn btn-outline-secondary" asp-page="/Identity/Account/Register">Cadastrar Agora</a>
+        </div>
+    </div>
 </div>
