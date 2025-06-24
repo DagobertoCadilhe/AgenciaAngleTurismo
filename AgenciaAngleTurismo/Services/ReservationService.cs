@@ -32,13 +32,11 @@ namespace AgenciaAngleTurismo.Services
 
         public void ProcessReserva(Reserva reserva)
         {
-            // Verificar limite de viajantes
             if (reserva.QuantidadeViajantes > 10)
             {
                 CapacityReached?.Invoke("Oferecer ao cliente um serviço de transfer.");
             }
 
-            // Logs multicast
             _logReservaActions(reserva);
         }
 

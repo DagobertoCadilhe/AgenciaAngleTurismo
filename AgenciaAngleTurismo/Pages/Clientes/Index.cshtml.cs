@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace AgenciaTurismo.Pages_Clientes
 {
-    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly AgenciaTurismo.Data.AgenciaTurismoDbContext _context;

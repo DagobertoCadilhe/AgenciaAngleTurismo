@@ -24,18 +24,15 @@ namespace AgenciaTurismo.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal Preco { get; set; }
 
-        // Relacionamento N:1 com Destino
         [Display(Name = "Destino")]
         public int DestinoId { get; set; }
         public Destino? Destino { get; set; }
 
-        // Relacionamento 1:N com Reservas
         public ICollection<Reserva>? Reservas { get; set; }
 
         public bool IsDeleted { get; set; } = false;
     }
 
-    // Validação customizada para data futura
     public class FutureDateAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)

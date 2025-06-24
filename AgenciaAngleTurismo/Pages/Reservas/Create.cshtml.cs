@@ -2,6 +2,7 @@
 using AgenciaTurismo.Data;
 using AgenciaTurismo.Models;
 using AgenciaTurismo.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,21 +10,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AgenciaTurismo.Pages.Reservas
 {
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly AgenciaTurismoDbContext _context;
-        private readonly DiscountService _discountService;
+        private readonly DiscountService _discountService; 
         private readonly ReservationService _reservationService;
 
         public CreateModel(AgenciaTurismoDbContext context,
-                          DiscountService discountService,
-                          ReservationService reservationService)
+                               DiscountService discountService,
+                               ReservationService reservationService)
         {
             _context = context;
             _discountService = discountService;
             _reservationService = reservationService;
         }
 
+       
+        // MAPEA O FORMULARIO PARA O BANCO
         [BindProperty]
         public Reserva Reserva { get; set; }
 
@@ -32,39 +36,45 @@ namespace AgenciaTurismo.Pages.Reservas
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Clientes = new SelectList(await _context.Clientes.ToListAsync(), "Id", "Nome");
-            Pacotes = new SelectList(await _context.PacotesTuristicos
-                .Include(p => p.Destino)
-                .ToListAsync(), "Id", "TituloCompleto");
-
+            await LoadSelectListsAsync();
+       
             return Page();
         }
 
+
+
+
+
+        // --- QUANDO ENVIA O FORMULARIO ---
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+
                 await LoadSelectListsAsync();
                 return Page();
             }
+
 
             var cliente = await _context.Clientes.FindAsync(Reserva.ClienteId);
             var pacote = await _context.PacotesTuristicos.FindAsync(Reserva.PacoteTuristicoId);
 
             if (cliente == null || pacote == null)
             {
-                ModelState.AddModelError("", "Cliente ou Pacote não encontrado");
+                ModelState.AddModelError("", "Cliente ou Pacote Turístico não encontrado.");
                 await LoadSelectListsAsync();
                 return Page();
             }
 
-            // Aplicar desconto
+
             CalculateDelegate discountDelegate = DiscountService.ApplySeniorDiscount;
+
             decimal precoComDesconto = discountDelegate(cliente.DataNascimento, pacote.Preco);
 
-            // Calcular valor total
+            Func<int, decimal, decimal> calculateTotalFunc = (viajantes, preco) => viajantes * preco;
+
             Reserva.ValorTotal = _reservationService.CalculateTotal(
-                (viajantes, preco) => viajantes * preco,
+                calculateTotalFunc,
                 Reserva.QuantidadeViajantes,
                 precoComDesconto
             );
@@ -72,12 +82,19 @@ namespace AgenciaTurismo.Pages.Reservas
             Reserva.DataReserva = DateTime.Now;
 
             _context.Reservas.Add(Reserva);
+
+            // COMITANDO PARA O BANCO
             await _context.SaveChangesAsync();
 
             _reservationService.ProcessReserva(Reserva);
 
             return RedirectToPage("./Index");
         }
+
+
+
+
+
 
         private async Task LoadSelectListsAsync()
         {

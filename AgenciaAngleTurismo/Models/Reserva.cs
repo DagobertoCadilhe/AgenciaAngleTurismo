@@ -7,12 +7,10 @@ namespace AgenciaTurismo.Models
     {
         public int Id { get; set; }
 
-        // Relacionamento N:1 com Cliente
         [Display(Name = "Cliente")]
         public int ClienteId { get; set; }
         public Cliente? Cliente { get; set; }
 
-        // Relacionamento N:1 com PacoteTuristico
         [Display(Name = "Pacote Turístico")]
         public int PacoteTuristicoId { get; set; }
         public PacoteTuristico? PacoteTuristico { get; set; }

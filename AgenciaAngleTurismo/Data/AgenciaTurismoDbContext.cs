@@ -19,20 +19,17 @@ namespace AgenciaTurismo.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); // Necessário para o Identity
+            base.OnModelCreating(modelBuilder);
 
-            // Configuração de exclusão lógica (soft delete)
             modelBuilder.Entity<Cliente>().HasQueryFilter(c => !c.IsDeleted);
             modelBuilder.Entity<Destino>().HasQueryFilter(d => !d.IsDeleted);
             modelBuilder.Entity<PacoteTuristico>().HasQueryFilter(p => !p.IsDeleted);
             modelBuilder.Entity<Reserva>().HasQueryFilter(r => !r.IsDeleted);
 
-            // Definir valor padrão para DataReserva
             modelBuilder.Entity<Reserva>()
                 .Property(r => r.DataReserva)
                 .HasDefaultValueSql("GETDATE()");
 
-            // Configurar relacionamentos com restrição de chave estrangeira
             modelBuilder.Entity<Reserva>()
                 .HasOne(r => r.Cliente)
                 .WithMany(c => c.Reservas)
@@ -51,8 +48,6 @@ namespace AgenciaTurismo.Data
                 .HasForeignKey(p => p.DestinoId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Configurações adicionais para o Identity (se necessário)
-            // Exemplo: renomear tabelas padrão do Identity
             modelBuilder.Entity<Microsoft.AspNetCore.Identity.IdentityUser>(entity =>
             {
                 entity.ToTable(name: "Users");

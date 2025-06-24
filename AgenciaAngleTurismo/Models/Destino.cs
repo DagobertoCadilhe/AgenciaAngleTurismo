@@ -14,7 +14,6 @@ namespace AgenciaTurismo.Models
         [MinLength(5, ErrorMessage = "O país deve ter no mínimo 5 caracteres")]
         public string Pais { get; set; }
 
-        // Relacionamento 1:N com PacotesTuristicos
         public ICollection<PacoteTuristico>? PacotesTuristicos { get; set; }
 
         public bool IsDeleted { get; set; } = false;

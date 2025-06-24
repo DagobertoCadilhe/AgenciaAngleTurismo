@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AgenciaTurismo.Pages.Reservas
 {
-    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly AgenciaTurismoDbContext _context;

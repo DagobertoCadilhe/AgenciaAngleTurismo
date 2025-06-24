@@ -20,7 +20,6 @@ namespace AgenciaTurismo.Models
         [DataType(DataType.Date)]
         public DateOnly DataNascimento { get; set; }
 
-        // Relacionamento 1:N com Reservas
         public ICollection<Reserva>? Reservas { get; set; }
 
         public bool IsDeleted { get; set; } = false;
